@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog on kenryooo.net blog</title>
+    <link>http://pages.kenryooo.net/blog/index.xml</link>
+    <description>Recent content in Blog on kenryooo.net blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Thu, 05 Jan 2017 12:00:00 +0900</lastBuildDate>
+    <atom:link href="http://pages.kenryooo.net/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ローカル環境で Hugo を動かす</title>
+      <link>http://pages.kenryooo.net/blog/%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E7%92%B0%E5%A2%83%E3%81%A7-hugo-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/</link>
+      <pubDate>Thu, 05 Jan 2017 12:00:00 +0900</pubDate>
+      
+      <guid>http://pages.kenryooo.net/blog/%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E7%92%B0%E5%A2%83%E3%81%A7-hugo-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/</guid>
+      <description>
+
+&lt;h3 id=&#34;hugo-とは&#34;&gt;Hugo とは&lt;/h3&gt;
+
+&lt;p&gt;Go 製の静的サイトジェネレータ。&lt;br /&gt;
+静的ページの生成が高速で、シンプルなところが好み。&lt;/p&gt;
+
+&lt;h3 id=&#34;インストール&#34;&gt;インストール&lt;/h3&gt;
+
+&lt;p&gt;mac なら&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ brew install hugo
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Go 環境が設定済みなら下記でもいい&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ go get install hugo
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;プロジェクト作成&#34;&gt;プロジェクト作成&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ hugo new site &amp;lt;your_site&amp;gt;
+$ cd &amp;lt;your_site&amp;gt; # ここがプロジェクトのルートディレクトリになる
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;テーマの適用&#34;&gt;テーマの適用&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;&amp;lt;your_site&amp;gt;&lt;/code&gt; 配下の &lt;code&gt;themes&lt;/code&gt; というディレクトリ配下に配置する。&lt;/p&gt;
+
+&lt;h4 id=&#34;すべてのテーマをまとめてインストールする場合&#34;&gt;すべてのテーマをまとめてインストールする場合&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ git clone --depth 1 --recursive https://github.com/spf13/hugoThemes.git themes
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;テーマを個別に選んでからインストールする場合&#34;&gt;テーマを個別に選んでからインストールする場合&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://themes.gohugo.io/&#34;&gt;こちら&lt;/a&gt;からテーマを選んで、個別のリポジトリから &lt;code&gt;git clone&lt;/code&gt; する。ここでは &lt;a href=&#34;https://github.com/nishanths/cocoa-hugo-theme&#34;&gt;cocoa&lt;/a&gt; を例に進める。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ git clone https://github.com/nishanths/cocoa-hugo-theme.git themes/cocoa
+$ hugo -vw -t cocoa serve  # サーバを起動 http://localhost:1313/)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;参考&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/spf13/hugoThemes#installation&#34;&gt;Installation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;theme-のカスタマイズ&#34;&gt;Theme のカスタマイズ&lt;/h4&gt;
+
+&lt;p&gt;カスタマイズするには &lt;code&gt;&amp;lt;your_site&amp;gt;/themes/&amp;lt;theme&amp;gt;/&lt;/code&gt; 配下を直接編集せずに、&lt;your_site&gt; 直下にディレクトリ・ファイルを追加する。追加するファイルは &lt;code&gt;&amp;lt;your_site&amp;gt;/themes/&amp;lt;theme&amp;gt;/exampleSite&lt;/code&gt; からコピーする。&lt;/p&gt;
+
+&lt;p&gt;まず &lt;code&gt;exampleSite&lt;/code&gt; の &lt;code&gt;config.toml&lt;/code&gt; をコピーして、カスタマイズしていくと楽ちん。あとは、&lt;a href=&#34;http://gohugo.io/overview/configuration/&#34;&gt;Configuring Hugo&lt;/a&gt;のページを見ながらカスタマイズしていくとよい。&lt;/p&gt;
+
+&lt;p&gt;ディレクトリ構造はこんな感じ&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ pwd
+&amp;lt;your_work_directory&amp;gt;/&amp;lt;your_site&amp;gt;/themes
+$ tree
+.
+└── cocoa
+    ├── LICENSE
+    ├── README.md
+    ├── archetypes
+    │   └── default.md
+    ├── exampleSite    # ここの配下から必要なものをコピーする
+    │   ├── LICENSE
+    │   ├── README.md
+    │   ├── config.toml
+    │   ├── content
+    │   │   ├── about-this-site.html
+    │   │   ├── blog
+    │   │   │   ├── lesmiserables-hugo.md
+    │   │   │   ├── metamorphosis-kafka.md
+    │   │   │   └── use-at-instead-of-head.md
+    │   │   ├── fixed
+    │   │   │   ├── about.md
+    │   │   │   ├── code.md
+    │   │   │   └── colophon.md
+    │   │   ├── posts.html
+    │   │   └── writing.html
+    │   └── static
+    │       ├── css
+    │       │   └── override.css
+    │       └── img
+    │           └── leaf.ico
+    ├── images
+    │   ├── screenshot.png
+    │   └── tn.png
+    ├── layouts
+    │   ├── 404.html
+    │   ├── _default
+    │   │   ├── list.html
+    │   │   └── single.html
+    │   ├── blog
+    │   │   └── single.html
+    │   ├── fixed
+    │   │   └── single.html
+    │   ├── index.html
+    │   └── partials
+    │       ├── footer.html
+    │       ├── footer_scripts.html
+    │       ├── head.html
+    │       ├── head_includes.html
+    │       ├── header.html
+    │       ├── li.html
+    │       ├── meta.html
+    │       └── page-heading.html
+    ├── static
+    │   ├── css
+    │   │   ├── main.css
+    │   │   ├── pygments.css
+    │   │   └── reset.css
+    │   └── img
+    │       └── favicon.ico
+    └── theme.toml
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

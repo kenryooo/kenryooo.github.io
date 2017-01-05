@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://pages.kenryooo.net/blog/%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E7%92%B0%E5%A2%83%E3%81%A7-hugo-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/</loc>
+    <lastmod>2017-01-05T12:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://pages.kenryooo.net/about/</loc>
+    <lastmod>2017-01-03T20:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://pages.kenryooo.net/colophon/</loc>
+    <lastmod>2017-01-03T20:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://pages.kenryooo.net/about-this-site/</loc>
+  </url>
+  
+  <url>
+    <loc>http://pages.kenryooo.net/posts/</loc>
+  </url>
+  
+  <url>
+    <loc>http://pages.kenryooo.net/writing/</loc>
+  </url>
+  
+  <url>
+    <loc>http://pages.kenryooo.net/blog/</loc>
+    <lastmod>2017-01-05T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://pages.kenryooo.net/fixed/</loc>
+    <lastmod>2017-01-03T20:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://pages.kenryooo.net/</loc>
+    <lastmod>2017-01-05T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

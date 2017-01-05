@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Python, Golang, AWS, GCP, Hugo などのメモがメインのブログです。">
+
+<base href="http://pages.kenryooo.net/">
+<title>
+
+
+     ローカル環境で Hugo を動かす 
+
+</title>
+<link rel="canonical" href="http://pages.kenryooo.net/blog/%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E7%92%B0%E5%A2%83%E3%81%A7-hugo-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/pages.kenryooo.net\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+
+
+
+
+
+<link rel="stylesheet" href="http://pages.kenryooo.net/css/reset.css?t=1483593818">
+<link rel="stylesheet" href="http://pages.kenryooo.net/css/pygments.css?t=1483593818">
+<link rel="stylesheet" href="http://pages.kenryooo.net/css/main.css?t=1483593818">
+
+    <link rel="stylesheet" href="http://pages.kenryooo.net/css/override.css?t=1483593818">
+
+
+
+
+
+<link rel="shortcut icon"
+
+    href="http://pages.kenryooo.net/img/leaf.ico"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="ja">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            
+            <a href="http://pages.kenryooo.net/"><div class="name">kenryooo</div></a>
+            <nav>
+                <ul>
+                    <a href="http://pages.kenryooo.net/blog/"><li>Blog</li></a>
+                    <a href="http://pages.kenryooo.net/about/"><li>About</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kenryooo" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kenryooo" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://pages.kenryooo.net/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    ローカル環境で Hugo を動かす
+
+</div>
+
+                    <div class="initials"><a href="http://pages.kenryooo.net/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Thu Jan 5 2017 12:00:00 JST">Jan 5, 2017</div>
+                    <div class="reading-time"><div class="middot"></div>2 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                
+
+<h3 id="hugo-とは">Hugo とは</h3>
+
+<p>Go 製の静的サイトジェネレータ。<br />
+静的ページの生成が高速で、シンプルなところが好み。</p>
+
+<h3 id="インストール">インストール</h3>
+
+<p>mac なら</p>
+
+<pre><code class="language-bash">$ brew install hugo
+</code></pre>
+
+<p>Go 環境が設定済みなら下記でもいい</p>
+
+<pre><code class="language-bash">$ go get install hugo
+</code></pre>
+
+<h3 id="プロジェクト作成">プロジェクト作成</h3>
+
+<pre><code class="language-bash">$ hugo new site &lt;your_site&gt;
+$ cd &lt;your_site&gt; # ここがプロジェクトのルートディレクトリになる
+</code></pre>
+
+<h3 id="テーマの適用">テーマの適用</h3>
+
+<p><code>&lt;your_site&gt;</code> 配下の <code>themes</code> というディレクトリ配下に配置する。</p>
+
+<h4 id="すべてのテーマをまとめてインストールする場合">すべてのテーマをまとめてインストールする場合</h4>
+
+<pre><code class="language-bash">$ git clone --depth 1 --recursive https://github.com/spf13/hugoThemes.git themes
+</code></pre>
+
+<h4 id="テーマを個別に選んでからインストールする場合">テーマを個別に選んでからインストールする場合</h4>
+
+<p><a href="http://themes.gohugo.io/">こちら</a>からテーマを選んで、個別のリポジトリから <code>git clone</code> する。ここでは <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a> を例に進める。</p>
+
+<pre><code class="language-bash">$ git clone https://github.com/nishanths/cocoa-hugo-theme.git themes/cocoa
+$ hugo -vw -t cocoa serve  # サーバを起動 http://localhost:1313/)
+
+</code></pre>
+
+<p>参考</p>
+
+<ul>
+<li><a href="https://github.com/spf13/hugoThemes#installation">Installation</a></li>
+</ul>
+
+<h4 id="theme-のカスタマイズ">Theme のカスタマイズ</h4>
+
+<p>カスタマイズするには <code>&lt;your_site&gt;/themes/&lt;theme&gt;/</code> 配下を直接編集せずに、<your_site> 直下にディレクトリ・ファイルを追加する。追加するファイルは <code>&lt;your_site&gt;/themes/&lt;theme&gt;/exampleSite</code> からコピーする。</p>
+
+<p>まず <code>exampleSite</code> の <code>config.toml</code> をコピーして、カスタマイズしていくと楽ちん。あとは、<a href="http://gohugo.io/overview/configuration/">Configuring Hugo</a>のページを見ながらカスタマイズしていくとよい。</p>
+
+<p>ディレクトリ構造はこんな感じ</p>
+
+<pre><code class="language-bash">$ pwd
+&lt;your_work_directory&gt;/&lt;your_site&gt;/themes
+$ tree
+.
+└── cocoa
+    ├── LICENSE
+    ├── README.md
+    ├── archetypes
+    │   └── default.md
+    ├── exampleSite    # ここの配下から必要なものをコピーする
+    │   ├── LICENSE
+    │   ├── README.md
+    │   ├── config.toml
+    │   ├── content
+    │   │   ├── about-this-site.html
+    │   │   ├── blog
+    │   │   │   ├── lesmiserables-hugo.md
+    │   │   │   ├── metamorphosis-kafka.md
+    │   │   │   └── use-at-instead-of-head.md
+    │   │   ├── fixed
+    │   │   │   ├── about.md
+    │   │   │   ├── code.md
+    │   │   │   └── colophon.md
+    │   │   ├── posts.html
+    │   │   └── writing.html
+    │   └── static
+    │       ├── css
+    │       │   └── override.css
+    │       └── img
+    │           └── leaf.ico
+    ├── images
+    │   ├── screenshot.png
+    │   └── tn.png
+    ├── layouts
+    │   ├── 404.html
+    │   ├── _default
+    │   │   ├── list.html
+    │   │   └── single.html
+    │   ├── blog
+    │   │   └── single.html
+    │   ├── fixed
+    │   │   └── single.html
+    │   ├── index.html
+    │   └── partials
+    │       ├── footer.html
+    │       ├── footer_scripts.html
+    │       ├── head.html
+    │       ├── head_includes.html
+    │       ├── header.html
+    │       ├── li.html
+    │       ├── meta.html
+    │       └── page-heading.html
+    ├── static
+    │   ├── css
+    │   │   ├── main.css
+    │   │   ├── pygments.css
+    │   │   └── reset.css
+    │   └── img
+    │       └── favicon.ico
+    └── theme.toml
+</code></pre>
+
+                <br>
+                <p><a href="http://pages.kenryooo.net/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kenryooo-pages.disqus.com';
+    var disqus_identifier = 'http:\/\/pages.kenryooo.net\/blog\/%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E7%92%B0%E5%A2%83%E3%81%A7-hugo-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99\/';
+    var disqus_title = 'ローカル環境で Hugo を動かす';
+    var disqus_url = 'http:\/\/pages.kenryooo.net\/blog\/%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E7%92%B0%E5%A2%83%E3%81%A7-hugo-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-89732412-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+  
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+
