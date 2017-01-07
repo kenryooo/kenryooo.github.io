@@ -6,8 +6,132 @@
     <description>Recent content in Blog on kenryooo.net blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-JP</language>
-    <lastBuildDate>Thu, 05 Jan 2017 12:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 07 Jan 2017 14:09:59 +0900</lastBuildDate>
     <atom:link href="http://pages.kenryooo.net/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Hugo で作ったページを Github Pages に公開する</title>
+      <link>http://pages.kenryooo.net/blog/hugo-%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92-github-pages-%E3%81%AB%E5%85%AC%E9%96%8B%E3%81%99%E3%82%8B/</link>
+      <pubDate>Sat, 07 Jan 2017 14:09:59 +0900</pubDate>
+      
+      <guid>http://pages.kenryooo.net/blog/hugo-%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92-github-pages-%E3%81%AB%E5%85%AC%E9%96%8B%E3%81%99%E3%82%8B/</guid>
+      <description>
+
+&lt;p&gt;&lt;a href=&#34;blog/ローカル環境で-hugo-を動かす/&#34;&gt;前回&lt;/a&gt; Hugo で作成した静的ファイルを、 Github Pages に公開する。公式の &lt;a href=&#34;http://gohugo.io/tutorials/github-pages-blog/&#34;&gt;Hosting on GitHub Pages&lt;/a&gt; を見ればできるが、手順を多少変えたので備忘録として公開しておく。&lt;/p&gt;
+
+&lt;p&gt;まず Github Pages での公開方法にはざっくり2種類あって、どちらでも公開可能なのだが、ここでは User Pages を使った方法で進める。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Github Pages ざっくり分類&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Project Pages&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;gh-pages&lt;/code&gt; という orphan ブランチ(履歴の無いブランチ)を作成すると公開される。&lt;/li&gt;
+&lt;li&gt;master ブランチ直下に &lt;code&gt;docs&lt;/code&gt; ディレクトリを作成して、静的ファイルを配置すると公開される。参考: &lt;a href=&#34;http://qiita.com/tonkotsuboy_com/items/f98667b89228b98bc096&#34;&gt;2016年新機能! GitHubのmasterブランチをWebページとして公開する手順&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;User/Organization Pages&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;your_name&amp;gt;/&amp;lt;your_name&amp;gt;.github.io&lt;/code&gt; というリポジトリを作成すると master ブランチが公開される。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;リポジトリ作成&#34;&gt;リポジトリ作成&lt;/h3&gt;
+
+&lt;p&gt;公開用リポジトリ(User Pages)とソース管理用のリポジトリの2つを用意する。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;&amp;lt;your_name&amp;gt;/blog-hugo&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ソース管理用リポジトリ。リポジトリ名は自由。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;your_site&amp;gt;/public&lt;/code&gt; 以外の管理をする。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;&amp;lt;your_name&amp;gt;/&amp;lt;your_name&amp;gt;.github.io&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;静的サイト公開用リポジトリ。User Pages なのでリポジトリ名はこの通りに作る。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;your_site&amp;gt;/public&lt;/code&gt; 配下を管理する。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;.gitignore に themes を除外するように設定しておく。&lt;br /&gt;
+※ 自分はやらなかったけど、個別の theme のリポジトリを submodule にしておくのがいいかも。&lt;/p&gt;
+
+&lt;h3 id=&#34;ソース公開用リポジトリの作業&#34;&gt;ソース公開用リポジトリの作業&lt;/h3&gt;
+
+&lt;p&gt;事前にローカルで作成済みの、プロジェクトのルートディレクトリ直下で行う。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ cd &amp;lt;your_site&amp;gt;  # プロジェクトのルートディレクトリ
+$ git init
+$ git remote add origin git@github.com:&amp;lt;your_name&amp;gt;/blog-hugo.git
+$ git pull origin master
+$ rm -rf public  # public は submodule としてあとで追加するのでいったん削除
+$ git add -A
+$ git commit -m &amp;quot;[add] Hugo template.&amp;quot;
+$ git push origin master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;サイト公開用リポジトリの作業&#34;&gt;サイト公開用リポジトリの作業&lt;/h3&gt;
+
+&lt;p&gt;git の submodule として追加する。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ cd &amp;lt;your_site&amp;gt;  # プロジェクトのルートディレクトリ
+$ git submodule add -b master git@github.com:&amp;lt;your_name&amp;gt;/&amp;lt;your_name&amp;gt;.github.io.git public
+$ hugo  # 静的サイトが public 配下に再生成される
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;サイト公開時のデプロイ自動化&#34;&gt;サイト公開時のデプロイ自動化&lt;/h3&gt;
+
+&lt;p&gt;上記で再生成した public 配下のページのデプロイを自動化する。これも公式ページのスクリプトがあるので最新版はそちらを参考にされたし。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ vi deploy.sh
+#!/bin/bash
+
+echo -e &amp;quot;\033[0;32mDeploying updates to GitHub...\033[0m&amp;quot;
+
+# Build the project.
+hugo # if using a theme, replace by `hugo -t &amp;lt;yourtheme&amp;gt;`
+
+# Go To Public folder
+cd public
+# Add changes to git.
+git add -A
+
+# Commit changes.
+msg=&amp;quot;rebuilding site `date`&amp;quot;
+if [ $# -eq 1 ]
+  then msg=&amp;quot;$1&amp;quot;
+fi
+git commit -m &amp;quot;$msg&amp;quot;
+
+# Push source and build repos.
+git push origin master
+
+# Come Back
+cd ..
+
+$ chmod +x deploy.sh
+$ ./deploy.sh &amp;quot;Your optional commit message&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;deploy.sh も忘れずに push しておく。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ git add deploy.sh
+$ git commit deploy.sh -m &amp;quot;[add] deploy script.&amp;quot;
+$ git push origin master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;参考にしたサイト&#34;&gt;参考にしたサイト&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://blog.syati.info/post/create_hugo_2/&#34;&gt;Hugo Part 2 - Hugo で github にブログを立ち上げる&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>ローカル環境で Hugo を動かす</title>

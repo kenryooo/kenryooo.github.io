@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Python, Golang, AWS, GCP, Hugo などのメモがメインのブログです。">
+
+<base href="http://pages.kenryooo.net/">
+<title>
+
+
+     Hugo で作ったページを Github Pages に公開する 
+
+</title>
+<link rel="canonical" href="http://pages.kenryooo.net/blog/hugo-%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92-github-pages-%E3%81%AB%E5%85%AC%E9%96%8B%E3%81%99%E3%82%8B/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/pages.kenryooo.net\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+
+
+
+
+
+<link rel="stylesheet" href="http://pages.kenryooo.net/css/reset.css?t=1483769682">
+<link rel="stylesheet" href="http://pages.kenryooo.net/css/pygments.css?t=1483769682">
+<link rel="stylesheet" href="http://pages.kenryooo.net/css/main.css?t=1483769682">
+
+    <link rel="stylesheet" href="http://pages.kenryooo.net/css/override.css?t=1483769682">
+
+
+
+
+
+<link rel="shortcut icon"
+
+    href="http://pages.kenryooo.net/img/leaf.ico"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="ja">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            
+            <a href="http://pages.kenryooo.net/"><div class="name">kenryooo</div></a>
+            <nav>
+                <ul>
+                    <a href="http://pages.kenryooo.net/blog/"><li>Blog</li></a>
+                    <a href="http://pages.kenryooo.net/about/"><li>About</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kenryooo" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kenryooo" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://pages.kenryooo.net/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Hugo で作ったページを Github Pages に公開する
+
+</div>
+
+                    <div class="initials"><a href="http://pages.kenryooo.net/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Sat Jan 7 2017 14:09:59 JST">Jan 7, 2017</div>
+                    <div class="reading-time"><div class="middot"></div>2 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                
+
+<p><a href="blog/ローカル環境で-hugo-を動かす/">前回</a> Hugo で作成した静的ファイルを、 Github Pages に公開する。公式の <a href="http://gohugo.io/tutorials/github-pages-blog/">Hosting on GitHub Pages</a> を見ればできるが、手順を多少変えたので備忘録として公開しておく。</p>
+
+<p>まず Github Pages での公開方法にはざっくり2種類あって、どちらでも公開可能なのだが、ここでは User Pages を使った方法で進める。</p>
+
+<hr />
+
+<p>Github Pages ざっくり分類</p>
+
+<p><strong>Project Pages</strong></p>
+
+<ul>
+<li><code>gh-pages</code> という orphan ブランチ(履歴の無いブランチ)を作成すると公開される。</li>
+<li>master ブランチ直下に <code>docs</code> ディレクトリを作成して、静的ファイルを配置すると公開される。参考: <a href="http://qiita.com/tonkotsuboy_com/items/f98667b89228b98bc096">2016年新機能! GitHubのmasterブランチをWebページとして公開する手順</a></li>
+</ul>
+
+<p><strong>User/Organization Pages</strong></p>
+
+<ul>
+<li><code>&lt;your_name&gt;/&lt;your_name&gt;.github.io</code> というリポジトリを作成すると master ブランチが公開される。</li>
+</ul>
+
+<hr />
+
+<h3 id="リポジトリ作成">リポジトリ作成</h3>
+
+<p>公開用リポジトリ(User Pages)とソース管理用のリポジトリの2つを用意する。</p>
+
+<p><code>&lt;your_name&gt;/blog-hugo</code></p>
+
+<ul>
+<li>ソース管理用リポジトリ。リポジトリ名は自由。</li>
+<li><code>&lt;your_site&gt;/public</code> 以外の管理をする。</li>
+</ul>
+
+<p><code>&lt;your_name&gt;/&lt;your_name&gt;.github.io</code></p>
+
+<ul>
+<li>静的サイト公開用リポジトリ。User Pages なのでリポジトリ名はこの通りに作る。</li>
+<li><code>&lt;your_site&gt;/public</code> 配下を管理する。</li>
+</ul>
+
+<p>.gitignore に themes を除外するように設定しておく。<br />
+※ 自分はやらなかったけど、個別の theme のリポジトリを submodule にしておくのがいいかも。</p>
+
+<h3 id="ソース公開用リポジトリの作業">ソース公開用リポジトリの作業</h3>
+
+<p>事前にローカルで作成済みの、プロジェクトのルートディレクトリ直下で行う。</p>
+
+<pre><code class="language-bash">$ cd &lt;your_site&gt;  # プロジェクトのルートディレクトリ
+$ git init
+$ git remote add origin git@github.com:&lt;your_name&gt;/blog-hugo.git
+$ git pull origin master
+$ rm -rf public  # public は submodule としてあとで追加するのでいったん削除
+$ git add -A
+$ git commit -m &quot;[add] Hugo template.&quot;
+$ git push origin master
+</code></pre>
+
+<h3 id="サイト公開用リポジトリの作業">サイト公開用リポジトリの作業</h3>
+
+<p>git の submodule として追加する。</p>
+
+<pre><code class="language-bash">$ cd &lt;your_site&gt;  # プロジェクトのルートディレクトリ
+$ git submodule add -b master git@github.com:&lt;your_name&gt;/&lt;your_name&gt;.github.io.git public
+$ hugo  # 静的サイトが public 配下に再生成される
+</code></pre>
+
+<h3 id="サイト公開時のデプロイ自動化">サイト公開時のデプロイ自動化</h3>
+
+<p>上記で再生成した public 配下のページのデプロイを自動化する。これも公式ページのスクリプトがあるので最新版はそちらを参考にされたし。</p>
+
+<pre><code class="language-bash">$ vi deploy.sh
+#!/bin/bash
+
+echo -e &quot;\033[0;32mDeploying updates to GitHub...\033[0m&quot;
+
+# Build the project.
+hugo # if using a theme, replace by `hugo -t &lt;yourtheme&gt;`
+
+# Go To Public folder
+cd public
+# Add changes to git.
+git add -A
+
+# Commit changes.
+msg=&quot;rebuilding site `date`&quot;
+if [ $# -eq 1 ]
+  then msg=&quot;$1&quot;
+fi
+git commit -m &quot;$msg&quot;
+
+# Push source and build repos.
+git push origin master
+
+# Come Back
+cd ..
+
+$ chmod +x deploy.sh
+$ ./deploy.sh &quot;Your optional commit message&quot;
+</code></pre>
+
+<p>deploy.sh も忘れずに push しておく。</p>
+
+<pre><code class="language-bash">$ git add deploy.sh
+$ git commit deploy.sh -m &quot;[add] deploy script.&quot;
+$ git push origin master
+</code></pre>
+
+<h3 id="参考にしたサイト">参考にしたサイト</h3>
+
+<ul>
+<li><a href="http://blog.syati.info/post/create_hugo_2/">Hugo Part 2 - Hugo で github にブログを立ち上げる</a></li>
+</ul>
+
+                <br>
+                <p><a href="http://pages.kenryooo.net/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kenryooo-pages';
+    var disqus_identifier = 'http:\/\/pages.kenryooo.net\/blog\/hugo-%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92-github-pages-%E3%81%AB%E5%85%AC%E9%96%8B%E3%81%99%E3%82%8B\/';
+    var disqus_title = 'Hugo で作ったページを Github Pages に公開する';
+    var disqus_url = 'http:\/\/pages.kenryooo.net\/blog\/hugo-%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92-github-pages-%E3%81%AB%E5%85%AC%E9%96%8B%E3%81%99%E3%82%8B\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-89732412-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+  
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+
