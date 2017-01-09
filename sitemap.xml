@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://pages.kenryooo.net/blog/ubuntu-14.04-lts-%E3%81%A7-2tb-%E8%B6%85%E3%81%AE-hdd-%E3%82%92%E4%BD%BF%E3%81%86/</loc>
+    <lastmod>2017-01-09T16:39:33+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://pages.kenryooo.net/blog/hugo-%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92-github-pages-%E3%81%AB%E5%85%AC%E9%96%8B%E3%81%99%E3%82%8B/</loc>
     <lastmod>2017-01-07T14:09:59+09:00</lastmod>
   </url>
@@ -35,7 +40,7 @@
   
   <url>
     <loc>http://pages.kenryooo.net/blog/</loc>
-    <lastmod>2017-01-07T14:09:59+09:00</lastmod>
+    <lastmod>2017-01-09T16:39:33+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -47,7 +52,7 @@
   
   <url>
     <loc>http://pages.kenryooo.net/</loc>
-    <lastmod>2017-01-07T14:09:59+09:00</lastmod>
+    <lastmod>2017-01-09T16:39:33+09:00</lastmod>
     <priority>0</priority>
   </url>
   
