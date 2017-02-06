@@ -6,8 +6,116 @@
     <description>Recent content in Blog on kenryooo.net blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-JP</language>
-    <lastBuildDate>Mon, 09 Jan 2017 16:39:33 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 06 Feb 2017 23:11:41 +0900</lastBuildDate>
     <atom:link href="http://pages.kenryooo.net/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>zplug を導入する</title>
+      <link>http://pages.kenryooo.net/blog/zplug-%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B/</link>
+      <pubDate>Mon, 06 Feb 2017 23:11:41 +0900</pubDate>
+      
+      <guid>http://pages.kenryooo.net/blog/zplug-%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B/</guid>
+      <description>
+
+&lt;p&gt;年末年始休みに macOS Sierra にアップデートして、そのついでに zsh 環境を見直して &lt;a href=&#34;https://github.com/zplug/zplug&#34;&gt;zplug&lt;/a&gt; を導入したのでその覚え書き。&lt;/p&gt;
+
+&lt;h2 id=&#34;環境&#34;&gt;環境&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;macOS Sierra 10.12.1&lt;/li&gt;
+&lt;li&gt;zsh 5.3.1 (x86_64-apple-darwin16.3.0)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;zplug&#34;&gt;zplug&lt;/h2&gt;
+
+&lt;p&gt;そろそろターミナル環境を見直すかーって機運の高まりを感じたので、いろいろ調べてみた。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;oh-my-zsh, Prezto は自分には不要なものが多い&lt;/li&gt;
+&lt;li&gt;Antigen は重い&lt;/li&gt;
+&lt;li&gt;zgen は Antigen に引きずられ過ぎ&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;んで、色々調べてたらで &lt;a href=&#34;https://github.com/zplug/zplug&#34;&gt;zplug&lt;/a&gt; というものがあると知って開発するポリシーが自分好みだったので採用してみた。&lt;/p&gt;
+
+&lt;h2 id=&#34;zshrc&#34;&gt;.zshrc&lt;/h2&gt;
+
+&lt;p&gt;下の設定を .zshrc に書いて問題なく動いている。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-zsh&#34;&gt;# ----------------------------------
+#  zplug configuration
+# ----------------------------------
+export ZPLUG_HOME=~/.zplug
+[[ -d $ZPLUG_HOME ]] || curl -sL zplug.sh/installer | zsh
+
+if [[ -d $ZPLUG_HOME ]]; then
+  source $ZPLUG_HOME/init.zsh
+fi
+
+zplug &amp;quot;zplug/zplug&amp;quot;
+
+# theme
+zplug &amp;quot;yous/lime&amp;quot;
+
+# command
+zplug &amp;quot;stedolan/jq&amp;quot;, \
+  from:gh-r, \
+  as:command, \
+  rename-to:jq
+zplug &amp;quot;b4b4r07/emoji-cli&amp;quot;, \
+  on:&amp;quot;stedolan/jq&amp;quot;
+zplug &amp;quot;mrowa44/emojify&amp;quot;, as:command
+zplug &amp;quot;motemen/ghq&amp;quot;, \
+  as:command, \
+  from:gh-r
+zplug &amp;quot;peco/peco&amp;quot;, as:command, from:gh-r
+zplug &amp;quot;b4b4r07/peco-tmux.sh&amp;quot;, \
+  as:command, \
+  on:&amp;quot;peco/peco&amp;quot;, \
+  use:&amp;quot;peco-tmux.sh&amp;quot;, \
+  rename-to:&amp;quot;peco-tmux&amp;quot;
+zplug &amp;quot;junegunn/fzf-bin&amp;quot;, \
+  as:command, \
+  from:gh-r, \
+  rename-to:fzf
+zplug &amp;quot;junegunn/fzf&amp;quot;, \
+  as:command, \
+  on:&amp;quot;junegunn/fzf-bin&amp;quot;, \
+  use:&amp;quot;bin/fzf-tmux&amp;quot;
+
+# 拡張
+zplug &amp;quot;b4b4r07/enhancd&amp;quot;, use:init.sh
+zplug &amp;quot;mollifier/anyframe&amp;quot;
+zplug &amp;quot;zsh-users/zsh-syntax-highlighting&amp;quot;, defer:2
+zplug &amp;quot;zsh-users/zsh-completions&amp;quot;
+
+zplug check || zplug install
+# zplug load --verbose
+zplug load
+
+# Lime theme settings
+export LIME_DIR_DISPLAY_COMPONENTS=2
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;導入してみて&#34;&gt;導入してみて&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;シンプルで導入も簡単&lt;/li&gt;
+&lt;li&gt;jq, ghq, peco のようなコマンド類は homebrew じゃなくて zplug で管理するようにした (brew / go get するものが減ってスッキリ)&lt;/li&gt;
+&lt;li&gt;zplug 関係ないけど一緒に導入した enhancd が最高だった&lt;/li&gt;
+&lt;li&gt;環境依存かもしれないけど、起動がもうワンテンポ早くならないかな&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/zplug/zplug/blob/master/doc/guide/ja/README.md&#34;&gt;公式の日本語ドキュメント&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://qiita.com/b4b4r07/items/cd326cd31e01955b788b&#34;&gt;おい、Antigen もいいけど zplug 使えよ&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://qiita.com/b4b4r07/items/2cf90da00a4c2c7b7e60&#34;&gt;ターミナルのディレクトリ移動を高速化する&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Ubuntu 14.04 LTS で 2TB 超の HDD を使う</title>
@@ -257,7 +365,7 @@ $ git push origin master
 
 &lt;p&gt;Go 環境が設定済みなら下記でもいい&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ go get install hugo
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ go get github.com/spf13/hugo
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&#34;プロジェクト作成&#34;&gt;プロジェクト作成&lt;/h3&gt;

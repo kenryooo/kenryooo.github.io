@@ -14,10 +14,10 @@
 <title>
 
 
-     Ubuntu 14.04 LTS で 2TB 超の HDD を使う 
+     zplug を導入する 
 
 </title>
-<link rel="canonical" href="http://pages.kenryooo.net/blog/ubuntu-14.04-lts-%E3%81%A7-2tb-%E8%B6%85%E3%81%AE-hdd-%E3%82%92%E4%BD%BF%E3%81%86/">
+<link rel="canonical" href="http://pages.kenryooo.net/blog/zplug-%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B/">
 
 
 <script type="text/javascript">
@@ -119,111 +119,117 @@
                 <div class="title-container">
                     <div class="page-heading">
 
-    Ubuntu 14.04 LTS で 2TB 超の HDD を使う
+    zplug を導入する
 
 </div>
 
                     <div class="initials"><a href="http://pages.kenryooo.net/"></a></div>
                 </div>
                 <div class="meta">
-                    <div class="date" title="Mon Jan 9 2017 16:39:33 JST">Jan 9, 2017</div>
-                    <div class="reading-time"><div class="middot"></div>2 minutes read</div>
+                    <div class="date" title="Mon Feb 6 2017 23:11:41 JST">Feb 6, 2017</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
                 </div>
             </div>
             <div class="markdown">
                 
 
-<p>年末年始のテレビ番組録画に備えて、録画マシンに HDD を増設したときのメモ。<br />
-2TB 超のディスクを扱うときは GNU Parted を使う。</p>
+<p>年末年始休みに macOS Sierra にアップデートして、そのついでに zsh 環境を見直して <a href="https://github.com/zplug/zplug">zplug</a> を導入したのでその覚え書き。</p>
 
-<h3 id="環境">環境</h3>
+<h2 id="環境">環境</h2>
 
-<p>OS: Ubuntu 14.04 LTS<br />
-HDD: Seagate ST4000DM000</p>
+<ul>
+<li>macOS Sierra 10.12.1</li>
+<li>zsh 5.3.1 (x86_64-apple-darwin16.3.0)</li>
+</ul>
 
-<h3 id="手順">手順</h3>
+<h2 id="zplug">zplug</h2>
 
-<p>GNU Parted インストール。</p>
+<p>そろそろターミナル環境を見直すかーって機運の高まりを感じたので、いろいろ調べてみた。</p>
 
-<pre><code class="language-bash">$ sudo apt-get install gparted
+<ul>
+<li>oh-my-zsh, Prezto は自分には不要なものが多い</li>
+<li>Antigen は重い</li>
+<li>zgen は Antigen に引きずられ過ぎ</li>
+</ul>
+
+<p>んで、色々調べてたらで <a href="https://github.com/zplug/zplug">zplug</a> というものがあると知って開発するポリシーが自分好みだったので採用してみた。</p>
+
+<h2 id="zshrc">.zshrc</h2>
+
+<p>下の設定を .zshrc に書いて問題なく動いている。</p>
+
+<pre><code class="language-zsh"># ----------------------------------
+#  zplug configuration
+# ----------------------------------
+export ZPLUG_HOME=~/.zplug
+[[ -d $ZPLUG_HOME ]] || curl -sL zplug.sh/installer | zsh
+
+if [[ -d $ZPLUG_HOME ]]; then
+  source $ZPLUG_HOME/init.zsh
+fi
+
+zplug &quot;zplug/zplug&quot;
+
+# theme
+zplug &quot;yous/lime&quot;
+
+# command
+zplug &quot;stedolan/jq&quot;, \
+  from:gh-r, \
+  as:command, \
+  rename-to:jq
+zplug &quot;b4b4r07/emoji-cli&quot;, \
+  on:&quot;stedolan/jq&quot;
+zplug &quot;mrowa44/emojify&quot;, as:command
+zplug &quot;motemen/ghq&quot;, \
+  as:command, \
+  from:gh-r
+zplug &quot;peco/peco&quot;, as:command, from:gh-r
+zplug &quot;b4b4r07/peco-tmux.sh&quot;, \
+  as:command, \
+  on:&quot;peco/peco&quot;, \
+  use:&quot;peco-tmux.sh&quot;, \
+  rename-to:&quot;peco-tmux&quot;
+zplug &quot;junegunn/fzf-bin&quot;, \
+  as:command, \
+  from:gh-r, \
+  rename-to:fzf
+zplug &quot;junegunn/fzf&quot;, \
+  as:command, \
+  on:&quot;junegunn/fzf-bin&quot;, \
+  use:&quot;bin/fzf-tmux&quot;
+
+# 拡張
+zplug &quot;b4b4r07/enhancd&quot;, use:init.sh
+zplug &quot;mollifier/anyframe&quot;
+zplug &quot;zsh-users/zsh-syntax-highlighting&quot;, defer:2
+zplug &quot;zsh-users/zsh-completions&quot;
+
+zplug check || zplug install
+# zplug load --verbose
+zplug load
+
+# Lime theme settings
+export LIME_DIR_DISPLAY_COMPONENTS=2
+
 </code></pre>
 
-<p>パーティションを作成する。</p>
+<h2 id="導入してみて">導入してみて</h2>
 
-<pre><code class="language-bash">$ ll /dev/disk/by-id/
-lrwxrwxrwx 1 root root   9 12月 23 17:09 ata-ST4000DM000-2AE166_WDH0YZJ4 -&gt; ../../sda  # パーティションを作成する先を確認
+<ul>
+<li>シンプルで導入も簡単</li>
+<li>jq, ghq, peco のようなコマンド類は homebrew じゃなくて zplug で管理するようにした (brew / go get するものが減ってスッキリ)</li>
+<li>zplug 関係ないけど一緒に導入した enhancd が最高だった</li>
+<li>環境依存かもしれないけど、起動がもうワンテンポ早くならないかな</li>
+</ul>
 
-$ sudo parted /dev/sda
-GNU Parted 2.3
-/dev/sda を使用
-GNU Parted へようこそ！ コマンド一覧を見るには 'help' と入力してください
+<h2 id="参考">参考</h2>
 
-(parted) mklabel gpt
-(parted) unit GB
-(parted) mkpart
-パーティションの名前?  []?                                      
-ファイルシステムの種類?  [ext2]? ext4
-開始? 0
-終了? 4001
-(parted) print
-モデル: ATA ST4000DM000-2AE1 (scsi)
-ディスク /dev/sda: 4001GB
-セクタサイズ (論理/物理): 512B/4096B
-パーティションテーブル: gpt
+<p><a href="https://github.com/zplug/zplug/blob/master/doc/guide/ja/README.md">公式の日本語ドキュメント</a></p>
 
-番号  開始    終了    サイズ  ファイルシステム  名前  フラグ
- 1    0.00GB  4001GB  4001GB
-(parted) quit
-通知: 必要であれば /etc/fstab を更新するのを忘れないようにしてください。
+<p><a href="http://qiita.com/b4b4r07/items/cd326cd31e01955b788b">おい、Antigen もいいけど zplug 使えよ</a></p>
 
-$ ll /dev/disk/by-id/ | grep sda
-lrwxrwxrwx 1 root root   9 12月 23 20:25 ata-ST4000DM000-2AE166_WDH0YZJ4 -&gt; ../../sda
-lrwxrwxrwx 1 root root  10 12月 23 20:25 ata-ST4000DM000-2AE166_WDH0YZJ4-part1 -&gt; ../../sda1
-lrwxrwxrwx 1 root root   9 12月 23 20:25 wwn-0x5000c5009d4b7807 -&gt; ../../sda
-lrwxrwxrwx 1 root root  10 12月 23 20:25 wwn-0x5000c5009d4b7807-part1 -&gt; ../../sda1
-</code></pre>
-
-<p>ファイルシステムを作成する。</p>
-
-<pre><code class="language-bash">$ sudo mkfs -t ext4 /dev/sda1
-mke2fs 1.42.9 (4-Feb-2014)
-Filesystem label=
-OS type: Linux
-Block size=4096 (log=2)
-Fragment size=4096 (log=2)
-Stride=0 blocks, Stripe width=0 blocks
-244195328 inodes, 976754176 blocks
-48837708 blocks (5.00%) reserved for the super user
-First data block=0
-Maximum filesystem blocks=4294967296
-29809 block groups
-32768 blocks per group, 32768 fragments per group
-8192 inodes per group
-Superblock backups stored on blocks: 
-	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, 
-	4096000, 7962624, 11239424, 20480000, 23887872, 71663616, 78675968, 
-	102400000, 214990848, 512000000, 550731776, 644972544
-
-Allocating group tables: done                            
-Writing inode tables: done                            
-Creating journal (32768 blocks): done
-Writing superblocks and filesystem accounting information: done 
-</code></pre>
-
-<p>Parted が最後に教えてくれたとおりに fstab に設定を追加する。</p>
-
-<pre><code class="language-bash">$ sudo blkid /dev/sda1 
-/dev/sda1: UUID=&quot;&lt;uuid&gt;&quot; TYPE=&quot;ext4&quot;
-
-$ vi /etc/fstab  # 以下の1行を追加
-UUID=&lt;uuid&gt;       /media/video/volume2    ext4    defaults        1       2
-</code></pre>
-
-<p>再起動して自動マウントを確認。</p>
-
-<pre><code class="language-bash">$ df -h | grep sda1
-/dev/sda1                    3.6T   68M  3.4T   1% /media/video/volume2
-</code></pre>
+<p><a href="http://qiita.com/b4b4r07/items/2cf90da00a4c2c7b7e60">ターミナルのディレクトリ移動を高速化する</a></p>
 
                 <br>
                 <p><a href="http://pages.kenryooo.net/blog/">Back to posts</a></p>
@@ -233,9 +239,9 @@ UUID=&lt;uuid&gt;       /media/video/volume2    ext4    defaults        1       
                 <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'kenryooo-pages';
-    var disqus_identifier = 'http:\/\/pages.kenryooo.net\/blog\/ubuntu-14.04-lts-%E3%81%A7-2tb-%E8%B6%85%E3%81%AE-hdd-%E3%82%92%E4%BD%BF%E3%81%86\/';
-    var disqus_title = 'Ubuntu 14.04 LTS で 2TB 超の HDD を使う';
-    var disqus_url = 'http:\/\/pages.kenryooo.net\/blog\/ubuntu-14.04-lts-%E3%81%A7-2tb-%E8%B6%85%E3%81%AE-hdd-%E3%82%92%E4%BD%BF%E3%81%86\/';
+    var disqus_identifier = 'http:\/\/pages.kenryooo.net\/blog\/zplug-%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B\/';
+    var disqus_title = 'zplug を導入する';
+    var disqus_url = 'http:\/\/pages.kenryooo.net\/blog\/zplug-%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B\/';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
